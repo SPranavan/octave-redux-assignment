@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { UsersData } from '../FakeData';
+import { UsersData } from '../UsersData';
 
 //Creating Redux Slice
 export const usersSlice = createSlice({
@@ -13,10 +13,14 @@ export const usersSlice = createSlice({
         },
         deleteUser:(state, action)=>{
             state.value=state.value.filter((user)=>user.id != action.payload.id)
+        },
+        resetUser: (state) => {
+            state.value = [];
         }
     }
 })
 
+export const {resetUser} = usersSlice.actions;
 export const {deleteUser} = usersSlice.actions;
 export const {addUser} = usersSlice.actions;
 export default usersSlice.reducer;
