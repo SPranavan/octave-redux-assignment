@@ -103,3 +103,22 @@
   justify-content: center;
   align-items: center;
 }
+
+.page-link {
+  background-color: #c8cec8 !important;
+  color: #000 !important;
+  border-color: #687699 !important;
+  font-size: 15px;
+}
+
+.page-link:hover {
+  background-color: #fff !important;
+  border-color: #566368 !important;
+  color: #86634f !important;
+}
+
+.page-item.active .page-link {
+  background-color: hsl(231, 6%, 55%) !important;
+  border-color: #000000 !important;
+  color: #fff !important;
+}

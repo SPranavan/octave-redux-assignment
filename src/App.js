@@ -31,19 +31,21 @@ function App() {
   useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
+    }else if (currentPage < 1) {
+      setCurrentPage(1);
     }
   }, [users, currentPage, totalPages]);
 
   const startIndex = (currentPage - 1) * usersPerPage;
   const endIndex = startIndex + usersPerPage;
-  const usersToDisplay = users.slice(startIndex, endIndex);
+  const usersToDisplay = users.slice(startIndex, endIndex);  
 
   // Determine whether to show pagination based on the number of pages
   const showPagination = totalPages > 1;
 
   // Calculate the number of pagination items to display (maximum 2 pages)
   const paginationItems = [];
-  for (let i = 1; i <= Math.min(totalPages, 2); i++) {
+  for (let i = 1; i <= totalPages; i++) {
     paginationItems.push(
       <Pagination.Item
         key={i}
@@ -62,7 +64,7 @@ function App() {
     // Automatically hide the alert after 3 seconds
     setTimeout(() => {
       setShowAlert(false);
-    }, 3000); 
+    }, 2500); 
   };
 
   const handleShowAlertRed = (message) => {
@@ -72,7 +74,7 @@ function App() {
     // Automatically hide the alert after 3 seconds
     setTimeout(() => {
       setShowAlertRed(false);
-    }, 3000); 
+    }, 2500); 
   };
 
   return (
@@ -81,14 +83,16 @@ function App() {
           <div className='input-inner-container d-flex flex-column'>
               <input type='text' placeholder='Enter Name' className="app-input" onChange={(event)=>{
                   setName(event.target.value);
-              }}/>
+              }} required/>
               <input type='text' placeholder='Enter Age' className="app-input" onChange={(event)=>{
                   setAge(event.target.value);
-              }}/>
+              }} required/>
           </div>
           <div className='input-btn-container mt-2 mb-4 d-flex ms-auto'>
-              <button className="app-btn-1" onClick={()=>{dispatch(addUser({
-                  id: users[users.length-1].id + 1,
+              <button className="app-btn-1" onClick={()=>{
+                const nextId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
+                dispatch(addUser({
+                  id: nextId,
                   name: name,
                   age: age,
                   }));
@@ -96,7 +100,11 @@ function App() {
                   }}>Add User
               </button>
 
-              <button className="app-btn-1 ms-3" onClick={() => dispatch(resetUser())}>
+              <button className="app-btn-1 ms-3" onClick={() => {
+                  dispatch(resetUser());
+                  setCurrentPage(1); // Reset currentPage to 1
+                  handleShowAlertRed('All users deleted successfully.');
+                }}>
                 Reset
               </button>
           </div>
