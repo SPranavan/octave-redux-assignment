@@ -15,7 +15,6 @@ function App() {
 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
-  const [error, setError] = useState("");
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');  
@@ -104,6 +103,8 @@ function App() {
                   dispatch(resetUser());
                   setCurrentPage(1); // Reset currentPage to 1
                   handleShowAlertRed('All users deleted successfully.');
+                  setName('');
+                  setAge('');
                 }}>
                 Reset
               </button>

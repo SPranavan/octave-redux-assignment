@@ -12,7 +12,7 @@ export const usersSlice = createSlice({
             state.value.push(action.payload);
         },
         deleteUser:(state, action)=>{
-            state.value=state.value.filter((user)=>user.id != action.payload.id)
+            state.value=state.value.filter((user)=>user.id !== action.payload.id)
         },
         resetUser: (state) => {
             state.value = [];
